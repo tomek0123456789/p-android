@@ -1,0 +1,4 @@
+version: "1.0"
+services:
+  p-android-helloWorld:
+    image: tmiskowicz/p-android-image:latest
