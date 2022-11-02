@@ -1,6 +1,7 @@
 # TASK 2
 
 ### Docker Hub link
+TODO
 
 ```
 3.0 Należy stworzyć model Produktów z minimum czterema polami oraz metody w kontrolerze odpowiedzialne za odczyt jednego oraz wielu produktów; metody powinny zwracać JSONa; należy stworzyć odpowiednią tablicę routingu; dane powinny być zapisane w bazie danych, np. SQLite
