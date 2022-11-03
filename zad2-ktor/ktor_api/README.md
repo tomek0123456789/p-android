@@ -1,12 +1,7 @@
 # TASK 2
 
 ### Docker Hub link
-https://hub.docker.com/repository/docker/tmiskowicz/p-android-ktor
-
-### To access api with `docker-compose.yaml` using ngrok
-1. Run docker compose
-2. go to localhost:4040
-3. use the link provided by ngrok
+TODO
 
 ```
 3.0 Należy stworzyć model Produktów z minimum czterema polami oraz metody w kontrolerze odpowiedzialne za odczyt jednego oraz wielu produktów; metody powinny zwracać JSONa; należy stworzyć odpowiednią tablicę routingu; dane powinny być zapisane w bazie danych, np. SQLite
