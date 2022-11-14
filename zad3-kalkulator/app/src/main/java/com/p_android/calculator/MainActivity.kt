@@ -12,6 +12,9 @@ import kotlin.math.round
 class MainActivity : AppCompatActivity() {
     private lateinit var calculatorScreen: TextView
     private var state = State.EMPTY
+    private var hasDot = false
+    private var hasDotEquals = false
+    private var firstDot = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         setUpClear()
         setUpDot()
         setUpDelete()
+        setUpNegativeSign()
+//        setUpSmiley()
     }
 
     private fun setUpNumberButton(buttonSetup: NumberButton) {
@@ -42,16 +47,18 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             val newText = "${calculatorScreen.text}${buttonSetup.text}"
             state = when (state) {
-                State.EMPTY, State.NUMBER,
-                    State.EQUALS, State.DOT-> {
-                    calculatorScreen.text = newText
+                State.EMPTY, State.NUMBER, -> {
                     State.NUMBER
                 }
-                State.SINGLE_OPERATOR, State.DOUBLE_OPERATOR -> {
-                    calculatorScreen.text = newText
+                State.DOT -> {
+                    if (firstDot) State.NUMBER else State.EQUALS
+                }
+                State.SINGLE_OPERATOR, State.DOUBLE_OPERATOR,
+                State.EQUALS -> {
                     State.EQUALS
                 }
             }
+            calculatorScreen.text = newText
         }
     }
 
@@ -76,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             when(state) {
                 State.NUMBER -> {
                     calculatorScreen.text = newText
+                    hasDot = false
                     state = State.DOUBLE_OPERATOR
                 }
                 else -> {}
@@ -94,6 +102,10 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     calculatorScreen.text = output.toInt().toString()
                 }
+                hasDotEquals = false
+                if (calculatorScreen.text.contains(".")) {
+                    hasDot = true
+                }
                 state = State.NUMBER
             }
         }
@@ -103,6 +115,9 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.clear)
         button.setOnClickListener {
             calculatorScreen.text = ""
+            hasDot = false
+            hasDotEquals = false
+            firstDot = false
             state = State.EMPTY
         }
     }
@@ -112,6 +127,37 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             val length = calculatorScreen.text.length
             val newText = calculatorScreen.text.subSequence(0, length - 1).toString()
+            val deletedCharacter = calculatorScreen.text[length - 1]
+            when (state) {
+                State.EQUALS -> {
+                    val del = deletedCharacter.toString()
+                    if (del in TwoArgumentButton.values().map { it.text }) {
+                        state = State.NUMBER
+                    } else if (newText[length - 2] == '.') {
+                        state = State.DOT
+                    }
+                }
+                State.DOT -> {
+                    if (firstDot) {
+                        hasDot = false
+                        state = State.NUMBER
+                    } else {
+                        hasDotEquals = false
+                        state = State.EQUALS
+                    }
+                }
+                State.DOUBLE_OPERATOR -> {
+                    state = State.NUMBER
+                }
+                State.NUMBER -> {
+                    state = if (newText[length - 2] == '.') {
+                        State.DOT
+                    } else State.NUMBER
+                }
+                State.SINGLE_OPERATOR -> state = State.EMPTY
+                State.EMPTY -> {}
+            }
+
             calculatorScreen.text = newText
         }
     }
@@ -120,11 +166,40 @@ class MainActivity : AppCompatActivity() {
         val dotSymbol = "."
         val button: Button = findViewById(R.id.dot)
         button.setOnClickListener {
-            if (state == State.NUMBER) {
+            if (state == State.NUMBER && !hasDot) {
+                hasDot = true
                 val newText = "${calculatorScreen.text}$dotSymbol"
                 calculatorScreen.text = newText
                 state = State.DOT
+                firstDot = true
+            } else if (state == State.EQUALS && !hasDot) {
+                hasDotEquals = true
+                val newText = "${calculatorScreen.text}$dotSymbol"
+                calculatorScreen.text = newText
+                state = State.DOT
+                firstDot = false
             }
+        }
+    }
+
+    private fun setUpNegativeSign() {
+        val button: Button = findViewById(R.id.negativeSign)
+        button.setOnClickListener {
+            if (state == State.NUMBER || state == State.EQUALS) {
+                val newText = "-${calculatorScreen.text}"
+                calculatorScreen.text = newText
+            }
+        }
+    }
+
+    private fun setUpSmiley() {
+        val button: Button = findViewById(R.id.smiley)
+        button.setOnClickListener {
+            println(calculatorScreen.text)
+            println(state)
+            println("hasDot = $hasDot")
+            println("hasDotEquals = $hasDotEquals")
+            println("firstDot = $firstDot")
         }
     }
 

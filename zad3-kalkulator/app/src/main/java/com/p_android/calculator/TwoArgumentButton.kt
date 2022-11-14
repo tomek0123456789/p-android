@@ -7,4 +7,5 @@ enum class TwoArgumentButton(val buttonId: Int, val text: String,) {
     DIVISION(R.id.division, "/"),
     POWER(R.id.power, "^"),
     PERCENT(R.id.percent, "%"),
+
 }
