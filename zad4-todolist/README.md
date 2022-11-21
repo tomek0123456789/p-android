@@ -1,5 +1,5 @@
-Zad 4 Lista zadań
-
+# TASK 4
+```
 3.0 wyświetla listę z góry określonych zadań (ArrayList) na fragmentach
 
 3.5 pobiera zadania via data binding na fragmentach
@@ -9,3 +9,4 @@ Zad 4 Lista zadań
 4.5 stworzenie view modelu z polami: nazwa, opis, data, status + widok
 
 5.0 dodanie SQLite
+```
