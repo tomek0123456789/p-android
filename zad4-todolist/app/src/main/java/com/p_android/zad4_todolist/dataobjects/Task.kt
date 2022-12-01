@@ -1,5 +1,8 @@
 package com.p_android.zad4_todolist
 
+import android.content.Intent
+import android.view.View
+
 object TaskObject {
     val TASKS: MutableList<Task> = ArrayList()
     private val TASK_MAP: MutableMap<Int, Task> = HashMap()
@@ -30,5 +33,10 @@ object TaskObject {
 
     data class Task(val id: Int, val content: String, val details: String) {
         override fun toString(): String = content
+
+        fun onClick(activity: MainActivity) {
+            val intent = Intent(activity, ProductActivity::class.java)
+
+        }
     }
 }

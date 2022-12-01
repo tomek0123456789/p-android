@@ -21,9 +21,13 @@ class MyItemRecyclerViewAdapter(
             parent,
             false
         )
+
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item, parent, false)
+
         return ViewHolder(binding)
     }
 
+    //ctrl p skrot do wyswietlania funkcji
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.bind(item)

@@ -16,10 +16,10 @@ class ItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-        
+//        arguments?.let {
+//            columnCount = it.getInt(ARG_COLUMN_COUNT)
+//        }
+
     }
 
     override fun onCreateView(
@@ -27,21 +27,26 @@ class ItemFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_item_list, container, false) as RecyclerView
 
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyItemRecyclerViewAdapter(TaskObject.TASKS)
-            }
+//        if (view is RecyclerView) {
+//            with(view) {
+//                layoutManager = when {
+//                    columnCount <= 1 -> LinearLayoutManager(context)
+//                    else -> GridLayoutManager(context, columnCount)
+//                }
+//            }
+//        }
+        view.apply {
+            adapter = MyItemRecyclerViewAdapter(TaskObject.TASKS)
         }
         return view
     }
 
     companion object {
+        fun onClick() {
+            println("dupa")
+        }
 
         // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
