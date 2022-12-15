@@ -35,7 +35,6 @@ class ListFragment : Fragment(R.layout.fragment_list), RecyclerViewInterface {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentListBinding.inflate(inflater)
         val view = inflater.inflate(R.layout.fragment_list, container, false) as RecyclerView
         var list: List<ProductObject> = emptyList()
         lifecycleScope.launchWhenCreated {
@@ -51,8 +50,9 @@ class ListFragment : Fragment(R.layout.fragment_list), RecyclerViewInterface {
                 return@launchWhenCreated
             }
             if (response.isSuccessful && response.body() != null) {
-                Log.e("UDALO SIE", "KURWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                Log.e("UDALO SIE", ":)")
                 list = response.body()!!
+                println("Inside response.isSuccessful")
                 list.forEach {
                     println(it.id)
                     println(it.brand)
@@ -60,11 +60,21 @@ class ListFragment : Fragment(R.layout.fragment_list), RecyclerViewInterface {
                     println(it.name)
                     println(it.category)
                 }
+                println("Closing response.isSuccessful")
+                view.adapter = ItemListAdapter(list, this@ListFragment)
             } else {
-                Log.e("DUPA", "cos sie wyjebalo z responsem, jest body rowne null")
+                Log.e("DUPA", "cos sie wywalilo z responsem, jest body rowne null")
             }
         }
-        view.adapter = ItemListAdapter(list, this)
+//        println("\nAfter response.isSuccessful")
+//        list.forEach {
+//            println(it.id)
+//            println(it.brand)
+//            println(it.price)
+//            println(it.name)
+//            println(it.category)
+//        }
+//        view.adapter = ItemListAdapter(list, this)
         return view
     }
 

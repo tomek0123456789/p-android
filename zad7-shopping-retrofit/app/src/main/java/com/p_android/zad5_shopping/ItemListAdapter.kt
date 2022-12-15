@@ -35,16 +35,4 @@ class ItemListAdapter(
     override fun getItemCount(): Int = productList.size
 
     inner class ItemViewHolder(val binding: FragmentListItemBinding) : RecyclerView.ViewHolder(binding.root)
-
-    private val diffCallback = object : DiffUtil.ItemCallback<Product>() {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    private val differ = AsyncListDiffer(this, diffCallback)
 }
