@@ -36,7 +36,7 @@ class ListFragment : Fragment(R.layout.fragment_list), RecyclerViewInterface {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_list, container, false) as RecyclerView
-        var list: List<ProductObject> = emptyList()
+        var list: List<ProductObject>
         lifecycleScope.launchWhenCreated {
             val response = try {
                 RetrofitInstance.api.getProducts()
