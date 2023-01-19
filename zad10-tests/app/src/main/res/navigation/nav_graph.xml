@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigationGraph"
+    app:startDestination="@id/navigation_products">
+
+    <fragment
+        android:id="@+id/navigation_products"
+        android:name="com.example.zad5_shopping_app.ui.products.ProductsListFragment"
+        android:label="Products"
+        tools:layout="@layout/fragment_products_list" >
+        <action
+            android:id="@+id/action_navigation_products_to_productDetailsFragment"
+            app:destination="@id/navigation_product_details" />
+        <argument
+            android:name="product"
+            app:argType="com.example.zad5_shopping_app.data.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_categories"
+        android:name="com.example.zad5_shopping_app.ui.categories.CategoriesListFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_categories_list" />
+    <fragment
+        android:id="@+id/navigation_product_details"
+        android:name="com.example.zad5_shopping_app.ui.product_details.ProductDetailsFragment"
+        android:label="Product details"
+        tools:layout="@layout/fragment_product_details" >
+        <argument
+            android:name="product"
+            app:argType="com.example.zad5_shopping_app.data.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_shopping_cart"
+        android:name="com.example.zad5_shopping_app.ui.shopping_cart.ShoppingCartListFragment"
+        android:label="Shopping cart"
+        tools:layout="@layout/fragment_shopping_cart_list" />
+</navigation>
